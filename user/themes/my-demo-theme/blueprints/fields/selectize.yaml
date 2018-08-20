@@ -1,0 +1,16 @@
+form:
+  fields:
+    
+    #
+    # Selectize field
+    #
+    # The selectize field type is used to show a hybrid of a text box and a select box. Mostly useful for tagging and other element picking fields.
+
+    header.selection:
+      type: selectize
+      size: large
+      label: Set or select tag(s)
+      classes: fancy
+      validate:
+          type: commalist
+    

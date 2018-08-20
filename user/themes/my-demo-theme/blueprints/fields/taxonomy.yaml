@@ -1,0 +1,28 @@
+form:
+  fields:
+    
+    #
+    # Taxonomy
+    #
+    # The taxonomy field type is a special select preconfigured to select one or more taxonomy values.
+
+    header.taxonomy:
+      type: taxonomy
+      label: PLUGIN_ADMIN.TAXONOMY
+      multiple: true
+      validate:
+        type: array
+
+    # OR with options:
+
+    header.taxonomy:
+      type: taxonomy
+      label: PLUGIN_ADMIN.TAXONOMY
+      default:
+        category: ['blog','page']
+        tag: ['test']
+      options:
+        category: ['grav']
+      validate:
+        type: commalist
+    

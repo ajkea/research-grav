@@ -1,0 +1,246 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block content %}
+<style>
+	.field { margin: 15px 0; padding:15px; background: #fff;}
+	.field img { max-width: 100%; height: auto; }
+	code { display: inline-block; padding: 5px; margin: 15px 0; background: #000; color: #fff; }
+</style>
+<div style="padding: 30px; background: #ededed;">
+{#
+
+=======================================================
+RENDERING IMAGES
+=======================================================
+
+## Images saved in a global folder - 'user/pages/images'
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+POS:
+- Allows Grav image actions
+- All pages have acces to all images. No duplication amongst pages.
+
+### Render image as html img tag
+#### Optionaly can add .html([title][, alt][, classes])
+{% for image in page.header.fileupload %}
+	{{ page.find('/images').media[image.name].html('My title', 'Some ALT text', 'myclass') }}
+	or
+	{{ grav.pages.dispatch('/images').media[image.name].html('My title', 'Some ALT text', 'myclass') }}
+{% endfor %}
+
+### Get image url
+{% for image in page.header.fileupload %}
+	{{ grav.pages.dispatch('/images').media[image.name].url }}
+{% endfor %}
+
+#}
+
+<div class="field">
+	<h3>Default image</h3>
+	<code>&#123;&#123; page.find('/images').media[page.header.filepicker].html('My title', 'Some ALT text', 'myclass') &#125;&#125;</code>
+	<p>{{ page.find('/images').media[page.header.filepicker].html('My title', 'Some ALT text', 'myclass') }}</p>
+</div>
+
+{#
+
+## Images saved in a global theme folder - '<theme>/images'
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+POS:
+- Seperation of theme specific images (files)
+- All pages can have acces to all theme specific images. No duplication amongst pages.
+
+NEG:
+- No Grav image actions
+
+### Get image url
+{% for image in page.header.fileupload %}
+	{{ url('theme://images/' ~ image.name) }}
+{% endfor %}
+
+
+
+=======================================================
+GRAV IMAGE ACTIONS - Crop, resize, grayscale, etc
+=======================================================
+
+https://learn.getgrav.org/content/media
+
+
+## Display mode
++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+!!! Display mode must be called first. See docs.
+https://learn.getgrav.org/content/media#display-modes
+
+source:	Visual representation of the media itself, i.e. the actual image, video or file
+text:	Textual representation of the media
+thumbnail:	The thumbnail image for this media object
+
+{{ page.media['sample-image.jpg'].display('thumbnail') }}
+
+#}
+
+<div class="field">
+	<h3>Display mode: source</h3>
+	<code>&#123;&#123; page.find('/images').media[page.header.filepicker].display('thumbnail').html() &#125;&#125;</code>
+	<p>{{ page.find('/images').media[page.header.filepicker].display('thumbnail').html() }}</p>
+</div>
+
+{#
+
+## resize(width, height, [background])
++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Lets you create a new image based on the width and the height. 
+The aspect ratio is maintained and the new image will 
+contain blank areas in the color of the optional background color
+
+{{ page.media['sample-image.jpg'].resize(400, 200).html() }}
+
+#}
+
+<div class="field">
+	<h3>Resize (with optional background color)</h3>
+	<p>Lets you create a new image based on the width and the height. The aspect ratio is maintained and the new image will contain blank areas in the color of the optional background color.</p>
+	<code>&#123;&#123; page.find('/images').media[page.header.filepicker].resize(200, 200, '#bada55').html() &#125;&#125;</code>
+	<p>{{ page.find('/images').media[page.header.filepicker].resize(200, 200, '#bada55').html() }}</p>
+</div>
+
+{#
+
+## cropResize(width, height)
++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Best responive option.
+The aspect ratio is maintained and the new image will be resized 
+to fit in the bounding-box
+
+{{ page.media['sample-image.jpg'].cropResize(300, 300).html() }}
+
+#}
+
+<div class="field">
+	<h3>Crop resize</h3>
+	<p>Best responive option. The aspect ratio is maintained and the new image will be resized to fit in the bounding-box</p>
+	<code>&#123;&#123; page.find('/images').media[page.header.filepicker].cropResize(400, 200).html() &#125;&#125;</code>
+	<p>{{ page.find('/images').media[page.header.filepicker].cropResize(400, 200).html() }}</p>
+</div>
+
+{#
+
+## cropZoom(width, height)
++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Best Hero/slider option.
+Similar to regular cropResize, cropZoom also takes a width 
+and a height but will resize and crop the image to ensure 
+the resulting image is the exact size you requested. 
+The aspect ratio is maintained but parts of the image may 
+be cropped, however the resulting image is centered.
+
+{{ page.media['sample-image.jpg'].cropZoom(600,200).html() }}
+
+#}
+
+<div class="field">
+	<h3>Crop zoom</h3>
+	<p>Best Hero/slider option. Similar to regular cropResize, cropZoom also takes a width and a height but will resize and crop the image to ensure the resulting image is the exact size you requested. The aspect ratio is maintained but parts of the image may be cropped, however the resulting image is centered.</p>
+	<code>&#123;&#123; page.find('/images').media[page.header.filepicker].cropZoom(400, 400).html() &#125;&#125;</code>
+	<p>{{ page.find('/images').media[page.header.filepicker].cropZoom(400, 400).html() }}</p>
+</div>
+
+{#
+
+## Some other manipulation filters - grav contains more
++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+brightness(value) - value from -255 to +255
+{{ page.media['sample-image.jpg'].brightness(-100).html() }}
+
+#}
+
+<div class="field">
+	<h3>Brightness</h3>
+	<code>&#123;&#123; page.find('/images').media[page.header.filepicker].brightness(-50).html() &#125;&#125;</code>
+	<p>{{ page.find('/images').media[page.header.filepicker].brightness(-50).html() }}</p>
+</div>
+
+{#
+
+contrast(value) - value from -100 to +100
+{{ page.media['sample-image.jpg'].contrast(-50).html() }}
+
+#}
+
+<div class="field">
+	<h3>Contrast</h3>
+	<code>&#123;&#123; page.find('/images').media[page.header.filepicker].contrast(-50).html() &#125;&#125;</code>
+	<p>{{ page.find('/images').media[page.header.filepicker].contrast(-50).html() }}</p>
+</div>
+
+{#
+
+grayscale()
+{{ page.media['sample-image.jpg'].grayscale.html() }}
+
+#}
+
+<div class="field">
+	<h3>Grayscale</h3>
+	<code>&#123;&#123; page.find('/images').media[page.header.filepicker].grayscale.html() &#125;&#125;</code>
+	<p>{{ page.find('/images').media[page.header.filepicker].grayscale.html() }}</p>
+</div>
+
+{#
+
+smooth(value) - blur/sharpen effect - value setting from -10 to 10
+{{ page.media['sample-image.jpg'].smooth(5).html() }}
+
+#}
+
+<div class="field">
+	<h3>Smooth: Sharpen effect</h3>
+	<code>&#123;&#123; page.find('/images').media[page.header.filepicker].smooth(-10).html() &#125;&#125;</code>
+	<p>{{ page.find('/images').media[page.header.filepicker].smooth(-10).html() }}</p>
+</div>
+
+{#
+
+gaussianBlur(factor) - Strong blur effect
+{{ page.media['sample-image.jpg'].gaussianBlur(3).html() }}
+
+#}
+
+<div class="field">
+	<h3>GaussianBlur</h3>
+	<code>&#123;&#123; page.find('/images').media[page.header.filepicker].gaussianBlur(3).html() &#125;&#125;</code>
+	<p>{{ page.find('/images').media[page.header.filepicker].gaussianBlur(3).html() }}</p>
+</div>
+
+{#
+
+colorize(red, green, blue) -  red, green, and blue values from -255 to +255
+{{ page.media['sample-image.jpg'].colorize(100,-100,40).html() }}
+
+#}
+
+<div class="field">
+	<h3>Colorize(red, green, blue)</h3>
+	<code>&#123;&#123; page.find('/images').media[page.header.filepicker].colorize(-200,200,40).html() &#125;&#125;</code>
+	<p>{{ page.find('/images').media[page.header.filepicker].colorize(-200,200,40).html() }}</p>
+</div>
+
+{#
+
+#}
+
+<div class="field">
+	<h3>Combination: Sharpened, Colorized, Contrasted and Cropped to (x, y, width, height)</h3>
+	<code>&#123;&#123; page.find('/images').media[page.header.filepicker].smooth(-10).colorize(-200,100,-40).contrast(-50).crop(885,210,300,300).html() &#125;&#125;</code>
+	<p>{{ page.find('/images').media[page.header.filepicker].smooth(-10).colorize(-200,100,-40).contrast(-50).crop(885,210,300,300).html() }}</p>
+
+</div>
+
+</div>
+{% endblock %}

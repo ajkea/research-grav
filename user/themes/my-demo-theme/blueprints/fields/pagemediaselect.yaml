@@ -1,0 +1,12 @@
+form:
+  fields:
+    
+    #
+    # Page media select
+    #
+    # The pagemediaselect field type is used to allow the users to choose a media from one of the page media already uploaded through FTP or using the page media manager.
+
+    header.img_link:
+      label: Choose on page media
+      type: pagemediaselect
+    

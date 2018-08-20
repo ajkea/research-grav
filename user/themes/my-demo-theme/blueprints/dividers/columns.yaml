@@ -1,0 +1,26 @@
+form:
+  fields:
+    
+    #
+    # Divide fields in columns
+    #
+
+    columns:
+      type: columns
+      fields:
+        column1:
+          type: column
+          fields:
+
+            header.columexampleone:
+              type: text
+              label: Label text
+
+        column2:
+          type: column
+          fields:
+
+            header.columexampletwo:
+              type: text
+              label: Label text
+    

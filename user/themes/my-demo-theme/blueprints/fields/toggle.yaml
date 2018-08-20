@@ -1,0 +1,21 @@
+form:
+  fields:
+    
+    #
+    # Toggle buttons
+    #
+    # The toggle field type is an on/off kind of input, with configurable labels.
+    # highlight: The key of the option to highlight (set green when selected)
+    # options: The list of key-value options
+
+    header.toggle:
+      type: toggle
+      label: A simple boolean toggle
+      highlight: 1
+      default: 1 
+      options:
+          1: 'Yes'
+          0: 'No'
+      validate:
+          type: bool
+    

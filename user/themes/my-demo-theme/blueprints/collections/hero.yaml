@@ -1,0 +1,101 @@
+form:
+  fields:
+
+    # Fieldset Field
+    # The fieldset groups a set of fields inside a collapsible box.
+    #
+    # icon: font-awsome icon (exclude the 'fa-')
+
+    header.fieldset:
+      type: fieldset
+      title: Hero
+      help: Hero Content help
+      info: Hero Content info
+      text: Manage Hero content
+      icon: arrow-circle-right
+      collapsed: true     # Initial state of fieldset (see collapsible option)
+      collapsible: true    # Whether one can expand the fieldset or not 
+      fields:
+
+        #
+        # Hero
+        #
+        Hero:
+          type: section
+          title: Hero
+          underline: true
+
+        # Hero CTA
+        header.heroHeroMeta:
+          type: display
+          size: small
+          label: <br><strong>Set the text to display inside your page hero<br>- Set the main title<br>- The product title<br>- and the product short description.</strong>
+
+        # Hero title
+        header.heroTitle:
+          type: text
+          label: Page title
+          validate: 
+            required: true
+
+        # Hero subtitle
+        header.heroSubTitle:
+          type: text
+          label: Product title
+          validate: 
+            required: true
+
+        # Hero description
+        header.heroDespcription:
+          type: textarea
+          label: Product description
+          validate: 
+            required: true
+
+        # Hero CTA
+        header.heroCtaMeta:
+          type: display
+          size: small
+          label: <br><strong>Set the text for your button<br> and select a page where it should link to.</strong>
+
+        # Hero CTA - text link
+        header.heroCtaText:
+          type: text
+          label: Button text
+
+        # Hero CTA - page link
+        header.heroCtaLink:
+          type: pages
+          size: medium
+          classes: fancy
+          label: 'Link button to page:'
+          show_all: false
+          show_modular: false
+          show_root: false
+
+        # Hero - Hero image
+        header.heroImageMeta:
+          type: display
+          size: small
+          label: <br><strong>Select an image for your page hero <br> Choose an existing image or upload a new one.</strong>
+
+        header.heroImageExisting:
+          type: filepicker
+          folder: 'theme@:/images'
+          label: Choose an existing image
+          preview_images: true
+          accept:
+            - .png
+            - .jpg
+            - .svg
+
+        header.heroImageNew:
+          type: file
+          label: Upload a new image
+          multiple: false
+          destination: 'theme@:/images'
+          random_name: false
+          avoid_overwriting: false
+          limit: 1
+          accept:
+            - image/*

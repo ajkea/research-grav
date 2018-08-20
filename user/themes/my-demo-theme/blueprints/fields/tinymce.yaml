@@ -1,0 +1,11 @@
+form:
+  fields:
+    
+    #
+    # Textarea field
+    #
+    # This renders a TinyMCE editor (TinyMCE editor plugin must be installed !!)
+
+    header.tinymce:
+      type: TinyMCE
+      label: A TinyMCE editor (TinyMCE editor plugin must be installed !!)

@@ -1,0 +1,42 @@
+form:
+  fields:
+    
+    #
+    # List / Reapeter of fields
+    #
+    # The list field type is used to create collections of fields. The field accepts a fields attribute that will host subfields, and there will be an "Add item" button to allow the user to add more items to the collection.
+
+    # usage:
+    #
+    # {% for item in page.header.repeater %}
+    #   <div class="item {% if loop.index == 1 %}active{% endif %}">
+    #     {% for image in item.image %}
+    #       <img src="{{ base_url_absolute }}{{ page.route }}/{{ image.name }}" alt="{{ image.name }}" style="max-height: 400px; display: block; margin: auto;">
+    #     {% endfor %}
+    #       <div class="carousel-caption">
+    #           <h3>{{ item.title }}</h3>
+    #           <p>{{ item.description }}</p>
+    #       </div>
+    #   </div>
+    # {% endfor %}
+
+    header.repeater:
+      name: repeatedItemName
+      type: list
+      style: vertical
+      label: Repeated item
+      fields:
+        .text:
+          type: text
+          label: A Simple text field
+        .primary:
+          type: toggle
+          label: A Simple toggle field
+          highlight: 1
+          default: 1
+          options:
+              1: 'Yes'
+              0: 'No'
+          validate:
+              type: bool
+    

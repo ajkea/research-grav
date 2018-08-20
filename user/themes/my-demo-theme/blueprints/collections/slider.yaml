@@ -1,0 +1,69 @@
+form:
+  fields:
+    #
+    # Slider
+    #
+    slider:
+      type: section
+      title: Slider
+      underline: true
+
+    # Hero CTA
+    header.sliderMeta:
+      type: display
+      size: small
+      label: <br><strong>Write a small introduction about what the visitor is going to see.</strong>
+
+    # Hero description
+    header.sliderDespcription:
+      type: TinyMCE
+      label: Slider description
+
+    # Hero CTA - text link
+    header.sliderCtaText:
+      type: text
+      label: Slider button text
+
+    # Hero CTA - page link
+    header.sliderCtaLink:
+      type: pages
+      size: medium
+      classes: fancy
+      label: 'Link button to page:'
+      show_all: false
+      show_modular: false
+      show_root: false
+
+    header.slides:
+      name: slides
+      type: list
+      style: vertical
+      label: Slides
+      fields:
+        .title:
+          type: text
+          label: Slide tile
+        .description:
+          type: textarea
+          label: Slide description
+        .imageExisting:
+          type: filepicker
+          folder: 'theme@:/images'
+          label: Choose an existing image
+          preview_images: true
+          toggleable: true
+          accept:
+            - .png
+            - .jpg
+            - .svg
+        .image:
+          type: file
+          label: Upload a new image
+          multiple: false
+          destination: 'theme@:/images'
+          random_name: false
+          avoid_overwriting: false
+          toggleable: true
+          limit: 1
+          accept:
+            - image/*

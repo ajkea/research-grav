@@ -1,0 +1,12 @@
+form:
+  fields:
+    
+    #
+    # Date & time picker
+    #
+
+    header.date:
+      type: datetime
+      label: Select a date and time
+      help: PLUGIN_ADMIN.DATE_HELP
+    

@@ -1,0 +1,18 @@
+form:
+  fields:
+    
+    #
+    # file picker
+    #
+    # folder: '@self' or (location) 'theme@:/images/pages', 'theme@:/images', 'user/pages/images'
+
+    header.filepicker:
+      type: filepicker
+      folder: 'user/pages/images'
+      preview_images: true
+      label: Select a file
+      accept:
+        - .png
+        - .jpg
+        - .svg
+    

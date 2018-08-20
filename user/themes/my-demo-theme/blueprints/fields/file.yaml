@@ -1,0 +1,24 @@
+form:
+  fields:
+    #
+    # File upload
+    #
+    # destination: The folder where the files will be stored, relative to the Grav root. E.g. user/plugins/my-plugin/assets
+    # or '@self', 'theme@:/images/pages', 'theme@:/images', 'user/pages/images'
+    #
+    # multiple:  Whether or not to allow more than one file per field
+    # limit: When multiple is enabled, allows to constrain the amount of files permitted to be uploaded
+    # filesize:  The size in MB each file is allowed
+    # accept:  Add a list of accepted page mime types and extensions. E.g. ["image/*", '.mp3']
+
+    header.fileupload:
+      type: file
+      label: Upload a file
+      multiple: false
+      destination: 'user/pages/images'
+      random_name: false
+      avoid_overwriting: false
+      limit: 1
+      accept:
+        - image/*
+    

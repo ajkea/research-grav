@@ -1,0 +1,267 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block content %}
+
+	<style>
+		.field { margin: 15px 0; padding:15px; background: #fff;}
+		code { display: block; padding: 5px; margin: 15px 0; background: #000; color: #fff; }
+	</style>
+
+<div style="padding: 30px; background: #ededed;">
+
+	<!-- https://learn.getgrav.org/content/collections -->
+	<h1>Page collections - creating listings in Grav</h1>
+	<small><a href="https://learn.getgrav.org/content/collections">https://learn.getgrav.org/content/collections</a></small>
+
+
+
+	<!-- basic example -->
+	<div class="field">
+
+		<h2>List all child pages from the root</h2>
+		<code>{{" {% for item in page.collection({ 'items': '@root.children' }) %} "}}</code>
+		<code>{{" <a href='{{ item.url }}'>{{ item.title }}</a> "|escape}}</code>
+		<code>{{" {% endfor %} "}}</code>
+
+		{% for item in page.collection({ 'items': '@root.children' }) %}
+			<a href="{{ item.url }}">{{ item.title }}</a> <br>
+		{% endfor %}
+
+	</div>
+
+
+
+	<!-- order example -->
+	<div class="field">
+
+		<h2>List by order</h2>
+		<code>{{" {% for item in page.collection({ 'items': '@root.children', 'order': {'by': 'folder', 'dir': 'desc'} }) %} "}}</code>
+		<code>{{" <a href='{{ item.url }}'>{{ item.title }}</a> "|escape}}</code>
+		<code>{{" {% endfor %} "}}</code>
+
+		{% for item in page.collection({
+	            'items': '@root.children',
+	            'order': {
+	                'by': 'folder',
+	                'dir': 'desc',
+	            }
+	        })
+	    %}
+		
+			<a href="{{ item.url }}">{{ item.title }}</a> <br>
+
+		{% endfor %}
+
+	</div>
+
+	
+	<!-- listing by template example -->
+	<div class="field">
+
+		<h2>List by single template used - ofType()</h2>
+		<code>{{" {% for item in page.collection({'items': '@root.children', 'order': {'by': 'date','dir': 'desc'} }).ofType('image-demo') %} "}}</code>
+		<code>{{" <a href='{{ item.url }}'>{{ item.title }}</a> "|escape}}</code>
+		<code>{{" {% endfor %} "}}</code>
+
+		{% for item in page.collection({
+	            'items': '@root.children',
+	            'order': {
+	                'by': 'date',
+	                'dir': 'desc',
+	            },
+	            
+	        })
+	        .ofType('image-demo')
+	    %}
+		
+			<a href="{{ item.url }}">{{ item.title }}</a> <br>
+
+		{% endfor %}
+
+	</div>
+
+	
+
+	<!-- listing by template example -->
+	<div class="field">
+
+		<h2>List by multiple templates used - ofOneOfTheseTypes([array])</h2>
+		<code>{{" {% for item in page.collection({'items': '@root.children', 'order': {'by': 'date','dir': 'desc'} }).ofOneOfTheseTypes(['image-demo','divider-demo']) %} "}}</code>
+		<code>{{" <a href='{{ item.url }}'>{{ item.title }}</a> "|escape}}</code>
+		<code>{{" {% endfor %} "}}</code>
+
+		{% for item in page.collection({
+	            'items': '@root.children',
+	            'order': {
+	                'by': 'date',
+	                'dir': 'desc',
+	            },
+	            
+	        })
+	        .ofOneOfTheseTypes(['image-demo','divider-demo'])
+	    %}
+		
+			<a href="{{ item.url }}">{{ item.title }}</a> <br>
+
+		{% endfor %}
+
+	</div>
+
+
+
+	<!-- Listing amount example -->
+	<div class="field">
+
+		<h2>Amount of listing items - Restriction by order & limit</h2>
+		<code>{{" {% for item in page.collection({'items': '@root.children'}, 'order': {'by': 'date', 'dir': 'desc'}, 'limit': '2') %} "}}</code>
+		<code>{{" <a href='{{ item.url }}'>{{ item.title }}</a> "|escape}}</code>
+		<code>{{" {% endfor %} "}}</code>
+
+		{% for item in page.collection({
+	            'items': '@root.children',
+	            'order': {
+	                'by': 'date',
+	                'dir': 'desc',
+	            },
+	            'limit': '2'
+	            
+	        })
+	    %}
+	
+			<a href="{{ item.url }}">{{ item.title }}</a> <br>
+
+		{% endfor %}
+
+	</div>
+	
+
+	<!-- Listing amount example -->
+	<div class="field">
+
+		<h2>Amount of listing items - Restriction by slice(offset, length)</h2>
+		<code>{{" {% for item in page.collection({'items': '@root.children'}).slice(0,3) %} "}}</code>
+		<code>{{" <a href='{{ item.url }}'>{{ item.title }}</a> "|escape}}</code>
+		<code>{{" {% endfor %} "}}</code>
+
+		{% for item in page.collection({
+				'items': '@root.children'
+			}).slice(0,3) 
+		%}
+			<a href="{{ item.url }}">{{ item.title }}</a> <br>
+		{% endfor %}
+
+	</div>
+
+
+
+	<!-- Listing with pagination -->
+	<div class="field">
+
+		<h2>Amount of listing items - next / previous links</h2>
+
+		{% set theCollection = page.collection({'items': '@root.children'}) %}
+		{% set nextPage = theCollection.prevSibling(page.path).url|default(theCollection.first().url) %}
+		{% set prevPage = theCollection.nextSibling(page.path).url|default(theCollection.last().url) %}
+
+        <a class="nav nav-prev" href="{{ prevPage }}"><i class="fa fa-chevron-left"></i>Prev</a>
+		<strong> {{ page.title }} </strong>
+        <a class="nav nav-next" href="{{ nextPage }}">Next<i class="fa fa-chevron-right"></i></a>
+	</div>
+	
+
+
+
+	<!-- Listing with pagination -->
+	<div class="field">
+
+		<h2>Amount of listing items - pagination by children</h2>
+
+		{% set collection = page.collection({
+			'items': '@self.children', 
+			'pagination': true, 
+			'order': {'by': 'title'}, 
+			'limit': 2}) 
+		%}
+
+		{% set itemsInCollection = page.collection({'items': collection.params.items})|length %}
+		{% set itemsPerPage = collection.params.limit|default(itemsInCollection) %}
+		{% set pagesInCollection = (itemsInCollection / itemsPerPage)|round(0, 'ceil') %}
+		{% set currentPage = uri.param('page')|default('1') %}
+
+		<ul class="pagination">
+		{% for i in range(1, pagesInCollection) %}
+			<li {% if currentPage is same as('' ~ i ~ '') %} class="currentpage" {% endif %}>
+				<a href="{{ page.url ~ '/page' ~ system.param_sep ~ i }}">{{ i }}</a>
+			</li>
+		{% endfor %}
+		</ul>
+
+		{# Render the list of blog posts (automatically filtered when using pagination) #}
+		{% for child in collection %}
+		   {{ child.title }} <br>
+		{% endfor %}
+
+	</div>
+
+
+
+	<!-- Listing with pagination -->
+	<div class="field">
+
+		<h2>Amount of listing items - pagination by template</h2>
+		<p><strong>When using dynamic twig variables, turn off the page cache !</strong></p>
+
+		<!-- setup variables -->
+		{% set headerCollection = page.collection({ 'items': '@root.children' }) %}
+		{% set typesInCollection = headerCollection.ofOneOfTheseTypes(['image-demo','divider-demo','fields-demo']) %}
+		{% set itemsPerPage = 2 %}
+
+		<!-- page amount calculations -->
+		{% set itemsInCollection = typesInCollection|length %}
+		{% set pagesInCollection = (itemsInCollection / itemsPerPage)|round(0, 'ceil') %}
+		
+		<!-- listing item amount calculations -->
+		{% set currentPage = uri.param('page')|default('1') %}
+		{% set sliceOffset = (currentPage * itemsPerPage) - itemsPerPage %}
+
+		<!-- fallback - if itemsPerPage is set to 1 -->
+		{% if not itemsPerPage is same as(1) %}
+			{% set sliceLength =  sliceOffset + itemsPerPage %}
+		{% else %}
+			{% if sliceOffset ==  0 %}
+				{% set sliceLength =  1 %}
+			{% else %}
+				{% set sliceLength =  sliceOffset %}
+			{% endif %}
+		{% endif %}
+
+		<!-- the rendering -->
+		{% set theCollection = typesInCollection.slice(sliceOffset,sliceLength) %}
+
+
+		{{ "items per page: " ~ itemsPerPage }} <br>
+		{{ "items in collection: " ~ itemsInCollection }} <br>
+		{{ "pages in collection: " ~ pagesInCollection }} <br>
+		{{ "current page: " ~ currentPage }} <br>
+		{{ "slice offset: " ~ sliceOffset }} <br>
+		{{ "slice length: " ~ sliceLength }} <br>
+
+		
+		<!-- the pagination -->
+		<ul class="pagination">
+		{% for number in range(1, pagesInCollection) %}
+			<li {% if currentPage is same as('' ~ number ~ '') %} class="currentpage" {% endif %}>
+				<a href="{{ page.url ~ '/page' ~ system.param_sep ~ number }}">{{ number }}</a>
+			</li>
+		{% endfor %}
+		</ul>
+
+		<!-- the list items -->
+		{% for child in theCollection %} 
+		   {{ child.title }} <br>
+		{% endfor %}
+
+	</div>
+
+</div>
+{% endblock %}

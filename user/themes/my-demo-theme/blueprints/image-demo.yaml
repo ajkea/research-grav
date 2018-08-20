@@ -1,0 +1,41 @@
+title: Demo
+extends@: default
+
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+
+      fields:
+        content:
+          fields:
+
+            #
+            # hide the defaults
+            #
+
+            header.title:
+              replace@: true
+
+            content:
+              replace@: true
+
+            header.media_order:
+              replace@: true
+
+
+            #
+            # import of fields
+            #
+
+            filepicker:
+              type: section
+              title: Filepicker
+              underline: true
+              import@:
+                type: fields/filepicker
+                context: blueprints://
+
+            

@@ -1,0 +1,24 @@
+form:
+  fields:
+    
+    #
+    # expadable and grouped fields
+    #
+
+    header.fieldset:
+      type: fieldset
+      title: Your title
+      help: Help text
+      info: Info text
+      text: Text inside fieldset and before other fields
+      icon: comments
+      collapsed: true     # Initial state of fieldset (see collapsible option)
+      collapsible: true    # Whether one can expand the fieldset or not 
+      fields:
+        header.fieldset.an_example_text:
+          type: text
+          label: text
+        header.fieldset.an_example_textarea:
+          type: textarea
+          label: textarea
+    

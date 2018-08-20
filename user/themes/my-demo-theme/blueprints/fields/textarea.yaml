@@ -1,0 +1,12 @@
+form:
+  fields:
+    
+    #
+    # Textarea field
+    #
+    # This renders a default textarea, not a rich text editor
+
+    header.textarea:
+      type: textarea
+      label: Text area field
+    

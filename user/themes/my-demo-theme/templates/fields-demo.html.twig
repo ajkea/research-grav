@@ -1,0 +1,130 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block content %}
+
+	<style>
+		.field { margin: 15px 0; padding:15px; background: #fff;}
+		.field img { display: block; width: 100%; height: auto; max-width: 200px; }
+		code { display: inline-block; padding: 5px; margin: 15px 0; background: #000; color: #fff; }
+	</style>
+
+	<div style="padding: 30px; background: #ededed;">
+
+		<div class="field">
+			<h3>Color field value</h3>
+			<p>{{ page.header.color }}</p>
+			<code>&#123;&#123; page.header.color &#125;&#125;</code>
+		</div>
+
+		<div class="field">
+			<h3>Date & time field value</h3>
+			<p>{{ page.header.date }}</p>
+			<code>&#123;&#123; page.header.date &#125;&#125;</code>
+		</div>
+
+		<div class="field">
+			<h3>File - Storage options</h3>
+			<p>
+				If you save theme specific images to - folder: 'theme@:/images' - <br>
+				you can retrieve them by using the twig code:<br>
+				<code>&#123;&#123; url('theme://images/&lt;image-name&gt;') &#125;&#125;</code><br>
+				<img src="{{ url('theme://images/blockquotevisual.png') }}" alt="">
+			</p>
+			<p>
+				If you save all the user uploaded images to - folder: 'user/pages/images' - <br>
+				you can retrieve them by using the twig code:<br>
+				<code>&#123;&#123; page.find('/images').media[image.name] &#125;&#125;</code><br>
+				{% for image in page.header.fileupload %}
+					{{ page.find('/images').media[image.name].html() }}
+				{% endfor %}
+			</p>
+			<p>
+				If you save all the user uploaded images in each page folder (default) <br>
+				you can retrieve them by using the twig code:<br>
+				<code>&#123;&#123; base_url_absolute &#125;&#125;&#123;&#123; page.route &#125;&#125;/&#123;&#123; page.header.pageImage &#125;&#125;</code><br>
+				<img src="{{ base_url_absolute }}{{ page.route }}/{{ page.header.pageImage }}" alt="">
+			</p>
+		</div>
+
+		<div class="field">
+			<h3>File upload field value</h3>
+			<p>
+				<code>&#123;&#123; page.find('/images').media[image.name].html() &#125;&#125;</code><br>
+				{% for image in page.header.fileupload %}
+					{{ page.find('/images').media[image.name].html() }}
+				{% endfor %}
+			</p>
+		</div>
+
+		<div class="field">
+			<h3>File picker field value</h3>
+			<p>
+				<code>&#123;&#123; page.find('/images').media[page.header.filepicker].html() &#125;&#125;</code><br>
+				{{ page.find('/images').media[page.header.filepicker].html() }}
+			</p>
+			
+		</div>
+
+		<div class="field">
+			<h3>Page select field value</h3>
+			<p>{{ base_url_absolute }}{{ page.header.pageselect }}</p>
+			<code>&#123;&#123; base_url_absolute &#125;&#125;&#123;&#123; page.header.pageselect &#125;&#125;</code>
+			<p><a href="{{ base_url_absolute }}{{ page.header.pageselect }}">{{ page.header.pageselect }}</a></p>
+		</div>
+
+		<div class="field">
+			<h3>Repeater field value</h3>
+			<ul>
+			{% for item in page.header.repeater %}
+				<li>text: {{ item.text }} <br>boolean: {{ item.primary }}</li>
+			{% endfor %}
+			</ul>
+			<code>
+				&#123;% for item in page.header.repeater %&#125;<br>
+					text: &#123;&#123; item.text &#125;&#125;<br>
+					boolean: &#123;&#123; item.primary &#125;&#125;<br>
+				&#123;% endfor %&#125;
+			</code>
+		</div>
+
+		<div class="field">
+			<h3>Selectize field value (tag)</h3>
+			<ul>
+			{% for item in page.header.selection %}
+				<li>tag: {{ item }}</li>	
+			{% endfor %}
+			</ul>
+			<code>
+				&#123;% for item in page.header.selection %&#125;<br>
+					tag: &#123;&#123; item &#125;&#125;<br>
+				&#123;% endfor %&#125;
+			</code>
+		</div>
+
+		<div class="field">
+			<h3>Text field value</h3>
+			<p>{{ page.header.text }}</p>
+			<code>&#123;&#123; page.header.text &#125;&#125;</code>
+		</div>
+
+		<div class="field">
+			<h3>Textarea field value</h3>
+			<p>{{ page.header.textarea }}</p>
+			<code>&#123;&#123; page.header.textarea &#125;&#125;</code>
+		</div>
+
+		<div class="field">
+			<h3>TinyMCE field value</h3>
+			{{ page.header.tinymce }}
+			<code>&#123;&#123; page.header.tinymce &#125;&#125;</code>
+		</div>
+
+		<div class="field">
+			<h3>Toggle field value</h3>
+			{{ page.header.toggle }} <br>
+			<code>&#123;&#123; page.header.toggle &#125;&#125;</code>
+		</div>
+
+	</div>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+form:
+  fields:
+    
+    #
+    # Text field
+    #
+
+    header.text:
+      type: text
+      label: A simple text field
+    

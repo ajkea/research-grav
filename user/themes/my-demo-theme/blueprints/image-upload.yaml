@@ -1,0 +1,41 @@
+title: Demo
+extends@: default
+
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+
+      fields:
+
+        #
+        # hide default tabs
+        #
+
+        options:
+          replace@: true
+
+        advanced:
+          replace@: true
+
+        #
+        # alter content tab
+        #
+
+        content:
+          fields:
+
+            #
+            # hide the defaults
+            #
+
+            header.title:
+              replace@: true
+
+            content:
+              replace@: true
+
+
+            

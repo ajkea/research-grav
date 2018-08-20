@@ -1,0 +1,21 @@
+form:
+  fields:
+    
+    #
+    # Section divider
+    #
+    # The Section field type is used to divide a setting page into sections
+
+    content:
+      type: section
+      title: A Section title 
+      text: Section discription text
+      underline: true
+
+      fields:
+
+          #..... subfields
+          header.sectionexampleone:
+              type: text
+              label: Label text
+    

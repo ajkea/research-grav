@@ -1,0 +1,35 @@
+form:
+  fields:
+    
+    #
+    # Tab divider
+    #
+    # The tabs and tab field types are used to divide the contained form fields in tabs.
+
+    tabs:
+      type: tabs
+      active: 1
+
+      fields:
+        content:
+          type: tab
+          title: PLUGIN_ADMIN.CONTENT
+
+          fields:
+
+            # .... other subfields
+            header.tabexampleone:
+              type: text
+              label: Label text
+
+        options:
+          type: tab
+          title: PLUGIN_ADMIN.OPTIONS
+
+          fields:
+
+            # .... other subfields
+            header.tabexampletwo:
+              type: text
+              label: Label text
+    

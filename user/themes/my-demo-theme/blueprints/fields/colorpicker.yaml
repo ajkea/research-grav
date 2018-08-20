@@ -1,0 +1,11 @@
+form:
+  fields:
+    
+    #
+    # Color picker
+    #
+
+    header.color:
+      type: colorpicker
+      label: Choose a color
+    

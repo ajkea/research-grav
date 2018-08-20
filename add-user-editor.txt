@@ -1,0 +1,101 @@
+When you install Grav by default you will have an user with Administrator role for the Admin panel, with full access on all website’s contents and configurations.
+
+An user with the Editor role should be allowed to manage only website pages, without having access to configurations (configurations, plugins and themes). This could be really nice if you need to give permissions for modify page contents to someone else, hiding to him all website configurations.
+
+Here is how to create a new user with such role.
+
+Grav info on acceslevels: https://learn.getgrav.org/admin-panel/dashboard/profile#access-levels
+Grav info on groups and permissions: https://learn.getgrav.org/advanced/groups-and-permissions
+
+
+
+1. Create a new user
+====================
+
+Start the creation of a new user by typing following command from the website root:
+
+---------------------------------
+$ php -f bin/plugin login newuser
+---------------------------------
+
+Will be asked you to fill the following values:
+
+------------------------------------------------------------------------
+username: the username for the new user (e.g.: editor)
+password: the password for the new user
+email: an email address (needed, for example, to recover the password)
+permissions: choose Admin and Site Access
+full name: the displayed name
+title: you can set Editor here.
+status: choose enabled.
+------------------------------------------------------------------------
+
+
+
+2. Create the editor role
+=========================
+
+Open this file (or create it if it does not exists):
+
+user/config/groups.yaml
+and add the following content to create a new group named editors:
+
+-------------------------------------------
+editors:
+  icon: users
+  readableName: 'Editor Users'
+  description: 'The group of editors users'
+  access:
+    admin:
+      login: true
+      pages: true
+      maintenance: true
+      super: false
+    site:
+      login: true
+-------------------------------------------
+
+
+
+3. Assign the editor role to the new user
+==========================================
+
+Open the file:
+
+user/account/[username].yaml
+where [username] is the username of the new user (created at step 1).
+
+Replace these lines:
+
+---------------
+access:
+  admin:
+    login: true
+    super: true
+  site:
+    login: true
+---------------
+
+With this:
+
+---------------
+groups: 
+  - editors
+---------------
+
+In order to assign the new user to the editors group.
+So now you should have something like this:
+
+------------------------------------------------------------
+email: editor@example.com
+groups: 
+  - editors
+fullname: Editor
+title: Editor
+state: enabled
+hashed_password: $5g$32$VC.QXG6Nycds0d5UvCDj0dHGFDlFsLcC.JQE4SNqoR2
+------------------------------------------------------------
+
+Save the file.
+
+Now you can try to access the Admin panel with the new user. You should see only the Pages tab in the left sidebar (other than Dashboard and Logout). All the site’s cofigurations are not available for this user.

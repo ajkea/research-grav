@@ -1,0 +1,13 @@
+form:
+  fields:
+    
+    #
+    # Display
+    #
+    # Display extra information with fields
+
+    header.display:
+      type: display
+      size: small
+      label: 'This field type displays extra field information.'
+    

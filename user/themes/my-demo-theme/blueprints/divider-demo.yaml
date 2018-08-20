@@ -1,0 +1,82 @@
+title: Demo
+extends@: default
+
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+
+      fields:
+
+        #
+        # hide default tabs
+        #
+
+        content:
+          replace@: true
+
+        options:
+          replace@: true
+
+        advanced:
+          replace@: true
+
+        #
+        # add custom tabs
+        #
+
+        tab-columns:
+          type: tab
+          title: Columns
+
+          fields:
+
+            # Colomn demo
+            demo-colomns:
+              type: section
+              title: Colomn divider
+              underline: true
+              import@:
+                type: dividers/columns
+                context: blueprints://
+
+        #
+        # add custom tabs
+        #
+
+        tab-fieldset:
+          type: tab
+          title: Fieldset
+
+          fields:
+
+            # Fieldset demo
+            demo-fieldset:
+              type: section
+              title: Fieldset divider
+              underline: true
+              import@:
+                type: dividers/fieldset
+                context: blueprints://
+
+        #
+        # add custom tabs
+        #
+
+        tab-section:
+          type: tab
+          title: Section
+
+          fields:
+
+            # Section demo
+            demo-section:
+              type: section
+              import@:
+                type: dividers/section
+                context: blueprints://
+
+
+            
